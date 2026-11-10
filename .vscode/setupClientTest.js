@@ -47,6 +47,14 @@ describe('ReviewList renders review HTML safely', () => {
     const { container } = renderReview(XSS_BODY);
     expect(container.textContent).toContain('Nice item!');
   });
+
+  test('preserves bold text and links in a formatted review', () => {
+    const { getByRole, getByText } = renderReview(
+      '<p><strong>Great seller!</strong> <a href="https://example.com/item">Item details</a></p>'
+    );
+    expect(getByText('Great seller!').tagName).toBe('STRONG');
+    expect(getByRole('link', { name: 'Item details' })).toHaveAttribute('href', 'https://example.com/item');
+  });
 });
 `;
 

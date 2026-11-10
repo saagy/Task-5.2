@@ -8,6 +8,7 @@
   "scripts": {
     "install:all": "npm --workspaces install",
     "dev": "concurrently -n server,client -c blue,magenta \"npm:dev --workspace server\" \"npm:dev --workspace client\"",
+    "pretest": "node .vscode/setupBabelConfig.js && node .vscode/setupJestConfig.js && node .vscode/setupJestSetup.js && node .vscode/setupClientTest.js && node .vscode/setupServerTest.js",
     "test": "jest"
   },
   "devDependencies": {

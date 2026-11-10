@@ -73,4 +73,6 @@ Every attack from the `Flow.md` file works because the Reviews feature trusts us
 
 Your solution should utilize the `DOMPurify` package together with a custom configured `Content-Security-Policy` header via the `helmet` package. You are expected to know the difference between `DOMPurify` (which sanitizes the data/markup on the client before it is rendered) and a `Content-Security-Policy` (a browser-enforced policy sent by the server that restricts what may run), and to think carefully about why layering both — **defense-in-depth** — is stronger than either one alone.
 
-> A `jest` test suite ships with this task. From the project root, run `npm install` then `npm test`. The tests encode the secure behavior, so they **fail now** and **pass once your fix is applied** — use them to verify your work.
+From the project root, run `npm install` then `npm test`. The test command generates the Jest files on a fresh checkout and checks review rendering, the authenticated review API, and the CSP header.
+
+The review renderer uses DOMPurify to keep light formatting, including bold, emphasis, and links. It sanitizes reviews when displayed, including reviews already in the database. Helmet sends the policy on API responses and on the HTML served by Vite. Development allows Vite's React Fast Refresh bootstrap by hash and permits the styles that Vite injects. To check the built client locally, run `npm run build --workspace client` and then `npm run preview --workspace client` with the API running and the development client stopped.
